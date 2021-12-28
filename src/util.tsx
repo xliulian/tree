@@ -172,7 +172,7 @@ export function calcDropPosition(
       dropAllowed = false;
     }
   } else if (dropLevelOffset === 0) {
-    if (rawDropLevelOffset > -1.5) {
+    if (rawDropLevelOffset > 1) {
       // | Node     | <- abstractDropNode
       // | -^-===== | <- mousePosition
       // 1. try drop after
@@ -271,13 +271,11 @@ export function convertDataToTree(
 
   const { processProps = internalProcessProps } = processor || {};
   const list = Array.isArray(treeData) ? treeData : [treeData];
-  return list.map(
-    ({ children, ...props }): NodeElement => {
-      const childrenNodes = convertDataToTree(children, processor);
+  return list.map(({ children, ...props }): NodeElement => {
+    const childrenNodes = convertDataToTree(children, processor);
 
-      return <TreeNode {...processProps(props)}>{childrenNodes}</TreeNode>;
-    },
-  );
+    return <TreeNode {...processProps(props)}>{childrenNodes}</TreeNode>;
+  });
 }
 
 /**
